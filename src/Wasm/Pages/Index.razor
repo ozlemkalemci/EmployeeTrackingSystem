@@ -1,0 +1,346 @@
+﻿@page "/"
+@using Application.Common.Features.Addresses.Command.Add;
+@using Application.Common.Features.EmployeeJobInformation.Command.Add;
+@using Application.Common.Features.Employees.Command.Add;
+@using Application.Common.Features.PhoneNumbers.Command.Add;
+@using Application.Common.Models;
+@using Domain.Common;
+@using Domain.Enums.ContactEnums;
+@using Domain.Enums.JobEnums;
+@using Domain.Enums.PersonalEnums;
+@using Domain.Services;
+@using System.Text.Json;
+@inject NavigationManager NavigationManager
+@inject HttpClient HttpClient;
+@inject IUrlHelperService UrlHelperService
+@inject IJSRuntime JSRuntime
+
+
+<PageTitle>Index</PageTitle>
+
+<h3>Yeni Çalışan Ekle</h3>
+
+<EditForm Model="employeeDto" OnValidSubmit="SendForm">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <!-- Kişisel Bilgiler -->
+    <h4>Kişisel Bilgiler</h4>
+    <div class="form-group">
+        <label for="IdentityNumber">Kimlik Numarası</label>
+        <InputText id="IdentityNumber" @bind-Value="employeeDto.IdentityNumber" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="FirstName">Ad</label>
+        <InputText id="FirstName" @bind-Value="employeeDto.FirstName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="LastName">Soyad</label>
+        <InputText id="LastName" @bind-Value="employeeDto.LastName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="BirthDate">Doğum Tarihi</label>
+        <InputDate id="BirthDate" @bind-Value="employeeDto.BirthDate" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="BirthPlace">Doğum Yeri</label>
+        <InputText id="BirthPlace" @bind-Value="employeeDto.BirthPlace" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="Gender">Cinsiyet</label>
+        <InputSelect id="Gender" @bind-Value="employeeDto.Gender" class="form-control">
+            <option value="@Domain.Enums.PersonalEnums.Gender.Male">Erkek</option>
+            <option value="@Domain.Enums.PersonalEnums.Gender.Female">Kadın</option>
+            <option value="@Domain.Enums.PersonalEnums.Gender.Other">Diğer</option>
+        </InputSelect>
+    </div>
+    <div class="form-group">
+        <label for="MaritalStatus">Medeni Durum</label>
+        <InputSelect id="MaritalStatus" @bind-Value="employeeDto.MaritalStatus" class="form-control">
+            <option value="@Domain.Enums.PersonalEnums.MaritalStatus.Single">Bekar</option>
+            <option value="@Domain.Enums.PersonalEnums.MaritalStatus.Married">Evli</option>
+            <option value="@Domain.Enums.PersonalEnums.MaritalStatus.Divorced">Boşanmış</option>
+            <option value="@Domain.Enums.PersonalEnums.MaritalStatus.Widowed">Dul</option>
+        </InputSelect>
+    </div>
+    <div class="form-group">
+        <label for="EducationLevel">Eğitim Seviyesi</label>
+        <InputSelect id="EducationLevel" @bind-Value="employeeDto.EducationLevel" class="form-control">
+            <option value="@Domain.Enums.PersonalEnums.EducationLevel.PrimarySchool">İlkokul</option>
+            <option value="@Domain.Enums.PersonalEnums.EducationLevel.MiddleSchool">Ortaokul</option>
+            <option value="@Domain.Enums.PersonalEnums.EducationLevel.HighSchool">Lise</option>
+            <option value="@Domain.Enums.PersonalEnums.EducationLevel.VocationalSchool">Meslek Lisesi</option>
+            <option value="@Domain.Enums.PersonalEnums.EducationLevel.AssociateDegree">Ön Lisans</option>
+            <option value="@Domain.Enums.PersonalEnums.EducationLevel.BachelorDegree">Lisans</option>
+            <option value="@Domain.Enums.PersonalEnums.EducationLevel.MasterDegree">Yüksek Lisans</option>
+            <option value="@Domain.Enums.PersonalEnums.EducationLevel.DoctorateDegree">Doktora</option>
+        </InputSelect>
+    </div>
+    <div class="form-group">
+        <label for="LanguageSkill">Dil Bilgisi</label>
+        <InputSelect id="LanguageSkill" @bind-Value="employeeDto.LanguageSkill" class="form-control">
+            <option value="@Domain.Enums.PersonalEnums.LanguageSkill.English">İngilizce</option>
+            <option value="@Domain.Enums.PersonalEnums.LanguageSkill.French">Fransızca</option>
+            <option value="@Domain.Enums.PersonalEnums.LanguageSkill.German">Almanca</option>
+            <option value="@Domain.Enums.PersonalEnums.LanguageSkill.Spanish">İspanyolca</option>
+            <option value="@Domain.Enums.PersonalEnums.LanguageSkill.Other">Diğer</option>
+        </InputSelect>
+    </div>
+
+    <h4>Adres Bilgileri</h4>
+    <div class="form-group">
+        <label for="AddressType">Adres Türü</label>
+        <InputSelect id="AddressType" @bind-Value="employeeDto.AddressType" class="form-control">
+            <option value="@AddressType.Home">Ev</option>
+            <option value="@AddressType.Business">İş</option>
+            <option value="@AddressType.Friends">Arkadaş</option>
+            <option value="@AddressType.Family">Aile</option>
+            <option value="@AddressType.Other">Diğer</option>
+        </InputSelect>
+    </div>
+    <div class="form-group">
+        <label for="Country">Ülke</label>
+        <InputText id="Country" @bind-Value="employeeDto.Country" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="City">Şehir</label>
+        <InputText id="City" @bind-Value="employeeDto.City" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="District">İlçe</label>
+        <InputText id="District" @bind-Value="employeeDto.District" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="PostCode">Posta Kodu</label>
+        <InputText id="PostCode" @bind-Value="employeeDto.PostCode" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="AddressLine1">Adres Satırı 1</label>
+        <InputText id="AddressLine1" @bind-Value="employeeDto.AddressLine1" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="AddressLine2">Adres Satırı 2</label>
+        <InputText id="AddressLine2" @bind-Value="employeeDto.AddressLine2" class="form-control" />
+    </div>
+
+
+
+    <h4>İş Bilgileri</h4>
+    <div class="form-group">
+        <label for="Department">Departman</label>
+        <InputSelect id="Department" @bind-Value="employeeDto.Department" class="form-control">
+            <option value="@Departments.ProductionDepartment">Üretim Departmanı</option>
+            <option value="@Departments.SalesDepartment">Satış Departmanı</option>
+            <option value="@Departments.AccountingDepartment">Muhasebe Departmanı</option>
+            <option value="@Departments.HumanResourcesDepartment">İnsan Kaynakları Departmanı</option>
+            <option value="@Departments.LogisticsDepartment">Lojistik Departmanı</option>
+            <option value="@Departments.QualityControlDepartment">Kalite Kontrol Departmanı</option>
+            <option value="@Departments.ResearchAndDevelopmentDepartment">Araştırma ve Geliştirme Departmanı</option>
+            <option value="@Departments.MaintenanceAndRepairDepartment">Bakım ve Onarım Departmanı</option>
+            <option value="@Departments.ProductionPlanningDepartment">Üretim Planlama Departmanı</option>
+            <option value="@Departments.SafetyAndOccupationalHealthDepartment">İş Sağlığı ve Güvenliği Departmanı</option>
+            <option value="@Departments.InventoryManagementDepartment">Envanter Yönetimi Departmanı</option>
+            <option value="@Departments.ITDepartment">IT Departmanı</option>
+        </InputSelect>
+    </div>
+    <label for="JobTitle">İş Unvanı</label>
+    <InputSelect id="JobTitle" @bind-Value="employeeDto.JobTitle" class="form-control">
+        <option value="@JobTitles.AccountingSpecialist">Muhasebe Uzmanı</option>
+        <option value="@JobTitles.FinancialAnalyst">Mali Analist</option>
+        <option value="@JobTitles.TaxExpert">Vergi Uzmanı</option>
+        <option value="@JobTitles.HRSpecialist">İK Uzmanı</option>
+        <option value="@JobTitles.HRAssistant">İK Asistanı</option>
+        <option value="@JobTitles.PersonnelManager">Personel Yöneticisi</option>
+        <option value="@JobTitles.TrainingSpecialist">Eğitim Uzmanı</option>
+        <option value="@JobTitles.InventoryManager">Envanter Yöneticisi</option>
+        <option value="@JobTitles.StockControlSpecialist">Stok Kontrol Uzmanı</option>
+        <option value="@JobTitles.LogisticsAnalyst">Lojistik Analist</option>
+        <option value="@JobTitles.MachineMaintenanceSpecialist">Makine Bakım Uzmanı</option>
+        <option value="@JobTitles.Electrician">Elektrikçi</option>
+        <option value="@JobTitles.MaintenanceEngineer">Bakım Mühendisi</option>
+        <option value="@JobTitles.ITSpecialist">IT Uzmanı</option>
+        <option value="@JobTitles.NetworkEngineer">Ağ Mühendisi</option>
+        <option value="@JobTitles.SoftwareDeveloper">Yazılım Geliştirici</option>
+        <option value="@JobTitles.BackendDeveloper">Backend Geliştirici</option>
+        <option value="@JobTitles.FrontendDeveloper">Frontend Geliştirici</option>
+        <option value="@JobTitles.MachineLearningEngineer">Makine Öğrenimi Mühendisi</option>
+        <option value="@JobTitles.DatabaseAdministrator">Veritabanı Yöneticisi</option>
+        <option value="@JobTitles.ITManager">IT Müdürü</option>
+        <option value="@JobTitles.HardwareTechnician">Donanım Teknikeri</option>
+        <option value="@JobTitles.SupplyChainManager">Tedarik Zinciri Yöneticisi</option>
+        <option value="@JobTitles.WarehouseClerk">Depo Memuru</option>
+        <option value="@JobTitles.TransportationCoordinator">Taşıma Koordinatörü</option>
+        <option value="@JobTitles.LogisticsOperationSpecialist">Lojistik Operasyon Uzmanı</option>
+        <option value="@JobTitles.Operator">Operatör</option>
+        <option value="@JobTitles.Engineer">Mühendis</option>
+        <option value="@JobTitles.MaintenanceSpecialist">Bakım Uzmanı</option>
+        <option value="@JobTitles.QualityControlSpecialist">Kalite Kontrol Uzmanı</option>
+        <option value="@JobTitles.ProductionPlanningSpecialist">Üretim Planlama Uzmanı</option>
+        <option value="@JobTitles.ProductionPlanningEngineer">Üretim Planlama Mühendisi</option>
+        <option value="@JobTitles.PlanningCoordinator">Planlama Koordinatörü</option>
+        <option value="@JobTitles.InventoryAnalyst">Envanter Analisti</option>
+        <option value="@JobTitles.QualityControlEngineer">Kalite Kontrol Mühendisi</option>
+        <option value="@JobTitles.TestOperator">Test Operatörü</option>
+        <option value="@JobTitles.QualityManager">Kalite Müdürü</option>
+        <option value="@JobTitles.Researcher">Araştırmacı</option>
+        <option value="@JobTitles.ProductDevelopmentEngineer">Ürün Geliştirme Mühendisi</option>
+        <option value="@JobTitles.ProjectManager">Proje Yöneticisi</option>
+        <option value="@JobTitles.OccupationalSafetySpecialist">İş Sağlığı ve Güvenliği Uzmanı</option>
+        <option value="@JobTitles.FireSafetyCoordinator">Yangın Güvenliği Koordinatörü</option>
+        <option value="@JobTitles.SalesRepresentative">Satış Temsilcisi</option>
+        <option value="@JobTitles.SalesManager">Satış Müdürü</option>
+        <option value="@JobTitles.MarketingSpecialist">Pazarlama Uzmanı</option>
+    </InputSelect>
+    <div class="form-group">
+        <label for="EmploymentType">İstihdam Türü</label>
+        <InputSelect id="EmploymentType" @bind-Value="employeeDto.EmploymentType" class="form-control">
+            <option value="@EmploymentType.FullTime">Tam Zamanlı</option>
+            <option value="@EmploymentType.PartTime">Yarı Zamanlı</option>
+            <option value="@EmploymentType.Temporary">Geçici</option>
+            <option value="@EmploymentType.Intern">Stajyer</option>
+        </InputSelect>
+    </div>
+    <label for="HireDate">İşe Giriş Tarihi</label>
+    <input type="date" id="HireDate" @bind="employeeDto.HireDate" class="form-control" />
+
+
+
+    <h4>Telefon Bilgileri</h4>
+    <div class="form-group">
+        <label for="PhoneName">Telefon Adı</label>
+        <InputText id="PhoneName" @bind-Value="employeeDto.PhoneName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="PhoneNumber">Telefon Numarası</label>
+        <InputText id="PhoneNumber" @bind-Value="employeeDto.PhoneNumber" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="PhoneNumberType">Telefon Türü</label>
+        <InputSelect id="PhoneNumberType" @bind-Value="employeeDto.PhoneNumberType" class="form-control">
+            <option value="@PhoneNumberType.Job">İş</option>
+            <option value="@PhoneNumberType.Home">Ev</option>
+            <option value="@PhoneNumberType.Mobile">Cep</option>
+            <option value="@PhoneNumberType.Emergency">Acil Durum</option>
+            <option value="@PhoneNumberType.Family">Aile</option>
+            <option value="@PhoneNumberType.Other">Diğer</option>
+        </InputSelect>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Kaydet</button>
+</EditForm>
+
+@code {
+    private AddNewEmployeeDto employeeDto = new AddNewEmployeeDto();
+    private Guid employeeId;
+
+    private async Task SendForm()
+    {
+
+        var addEmployeeCommand = new AddEmployeeCommand
+            {
+
+                UserId = employeeDto.UserId,
+                CreatedByUserId = employeeDto.CreatedByUserId,
+                IdentityNumber = employeeDto.IdentityNumber,
+                FirstName = employeeDto.FirstName,
+                LastName = employeeDto.LastName,
+                BirthDate = employeeDto.BirthDate,
+                BirthPlace = employeeDto.BirthPlace,
+                Gender = employeeDto.Gender,
+                MaritalStatus = employeeDto.MaritalStatus,
+                EducationLevel = employeeDto.EducationLevel,
+                LanguageSkill = employeeDto.LanguageSkill,
+
+            };
+
+        var response = await HttpClient.PostAsJsonAsync("api/Employee/add-employee", addEmployeeCommand);
+
+        if (response.IsSuccessStatusCode)
+        {
+            var content = await response.Content.ReadAsStringAsync();
+            var result = JsonSerializer.Deserialize<Response<Guid>>(content, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+
+            if (result != null)
+            {
+                if (result.Data != Guid.Empty)
+                {
+                    employeeId = result.Data;
+                    var addAddressCommand = new AddAddressCommand
+                        {
+                            EmployeeId = employeeId,
+                            Addresses = new List<AddAddressCommand.AddressDto>
+                {
+                    new AddAddressCommand.AddressDto
+                    {
+                        Name = employeeDto.FirstName + " " + employeeDto.LastName,
+                        Country = employeeDto.Country,
+                        City = employeeDto.City,
+                        District = employeeDto.District,
+                        PostCode = employeeDto.PostCode,
+                        AddressLine1 = employeeDto.AddressLine1,
+                        AddressLine2 = employeeDto.AddressLine2,
+                        AddressType = employeeDto.AddressType,
+                    }
+                    }
+
+                        };
+                    await HttpClient.PostAsJsonAsync("api/Address/add-address", addAddressCommand);
+
+                    var addEmployeeJobInfoCommand = new AddEmployeeJobInfoCommand
+                        {
+                            EmployeeId = employeeId,
+                            Department = employeeDto.Department,
+                            JobTitle = employeeDto.JobTitle,
+                            EmploymentType = employeeDto.EmploymentType,
+                            EmploymentStatus = employeeDto.EmploymentStatus,
+                            HireDate = employeeDto.HireDate,
+                            ResignationDate = employeeDto.ResignationDate,
+                            LeaveStartDate = employeeDto.LeaveStartDate,
+                            LeaveEndDate = employeeDto.LeaveEndDate,
+
+                        };
+                    var jobInfoResponse = await HttpClient.PostAsJsonAsync("api/EmployeeJobInfo/add-employee-job-info", addEmployeeJobInfoCommand);
+
+                    var addPhoneNumbersCommand = new AddPhoneNumbersCommand
+                        {
+                            EmployeeId = employeeId,
+                            Phones = new List<AddPhoneNumbersCommand.PhoneDto>
+                            {
+                                new AddPhoneNumbersCommand.PhoneDto
+                                {
+                                    Name = employeeDto.PhoneName,
+                                    PhoneNumber = employeeDto.PhoneNumber,
+                                    PhoneNumberType = employeeDto.PhoneNumberType,
+                                }
+                            }
+
+                        };
+                    await HttpClient.PostAsJsonAsync("api/Phone/add-phone-numbers", addPhoneNumbersCommand);
+
+                }
+                else
+                {
+                    Console.WriteLine("result.Data empty");
+                }
+            }
+            else
+            {
+                Console.WriteLine("result empty");
+            }
+        }
+        else
+        {
+            Console.WriteLine("IsSuccessStatusCode false");
+
+            var errorMessage = await response.Content.ReadAsStringAsync();
+            Console.WriteLine(errorMessage);
+        }
+
+
+
+
+    }
+}
