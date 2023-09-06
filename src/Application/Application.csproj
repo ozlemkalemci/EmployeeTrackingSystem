@@ -22,7 +22,6 @@
     <Folder Include="Common\Features\EmployeeJobInformation\Command\Update\" />
     <Folder Include="Common\Features\Employees\Command\Delete\" />
     <Folder Include="Common\Features\Employees\Command\Update\" />
-    <Folder Include="Common\Features\Employees\Queries\" />
     <Folder Include="Common\Features\EmployeeTasks\Command\Delete\" />
     <Folder Include="Common\Features\EmployeeTasks\Command\Update\" />
     <Folder Include="Common\Features\EmployeeWorkingHours\Command\Delete\" />

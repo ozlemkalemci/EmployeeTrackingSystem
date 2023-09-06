@@ -1,9 +1,9 @@
 ﻿using Application.Common.Features.Employees.Command.Add;
+using Application.Common.Features.Employees.Queries.GetAll;
 using Domain.Entities;
 using Infrastructure.Persistence.Contexts;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace WebApi.Controllers
 {
@@ -27,9 +27,12 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("get-all-employees")]
-        public async Task<IActionResult> GetAllEmployeesAsync()
+        public async Task<IActionResult> GetAllEmployees()
         {
-            var employees = await _dbContext.Employees.ToListAsync();
+            var query = new GetEmployeesQuery();
+
+            var employees = await _mediator.Send(query);
+
             return Ok(employees);
         }
 

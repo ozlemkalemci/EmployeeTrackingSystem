@@ -1,0 +1,113 @@
+﻿@page "/showemployee"
+@using Application.Common.Features.Addresses.Command.Add;
+@using Application.Common.Features.EmployeeJobInformation.Command.Add;
+@using Application.Common.Features.EmployeeJobInformation.Query.GetByEmployeeId;
+@using Application.Common.Features.Employees.Command.Add;
+@using Application.Common.Features.Employees.Queries.GetAll;
+@using Application.Common.Features.PhoneNumbers.Command.Add;
+@using Application.Common.Models;
+@using Domain.Common;
+@using Domain.Enums.ContactEnums;
+@using Domain.Enums.JobEnums;
+@using Domain.Enums.PersonalEnums;
+@using Domain.Services;
+@using System.Text.Json;
+@inject NavigationManager NavigationManager
+@inject HttpClient HttpClient
+@inject IJSRuntime JSRuntime
+
+<h3>Employee Table</h3>
+
+@if (employees == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Birth Date</th>
+                <th>Birth Place</th>
+                <th>Gender</th>
+                <th>Identity Number</th>
+                <th>Marital Status</th>
+                <th>Job Info</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var employee in employees)
+            {
+                <tr>
+                    <td>@employee.FirstName</td>
+                    <td>@employee.LastName</td>
+                    <td>@employee.BirthDate.ToShortDateString()</td>
+                    <td>@employee.BirthPlace</td>
+                    <td>@employee.Gender</td>
+                    <td>@employee.IdentityNumber</td>
+                    <td>@employee.MaritalStatus</td>
+                    <td><span class="btn btn-secondary btn-sm" style="color:#cdcbc2" @onclick="(() => GetJobInfosByEmployeeIdAsync(employee.Id))">Job Info</span></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @if (employeeJobInfos != null)
+    {
+        <h4>Job Information</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Department</th>
+                    <th>Job Title</th>
+                    <th>Employment Type</th>
+                    <th>Employment Status</th>
+                    <th>Hire Date</th>
+                    <th>Resignation Date</th>
+                    <th>Leave Start Date</th>
+                    <th>Leave End Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var jobInfo in employeeJobInfos)
+                {
+                    <tr>
+                        <td>@jobInfo.Department</td>
+                        <td>@jobInfo.JobTitle</td>
+                        <td>@jobInfo.EmploymentType</td>
+                        <td>@jobInfo.EmploymentStatus</td>
+                        <td>@jobInfo.HireDate.ToShortDateString()</td>
+                        <td>@(jobInfo.ResignationDate.HasValue ? jobInfo.ResignationDate.Value.ToShortDateString() : "-")</td>
+                        <td>@(jobInfo.LeaveStartDate.HasValue ? jobInfo.LeaveStartDate.Value.ToShortDateString() : "-")</td>
+                        <td>@(jobInfo.LeaveEndDate.HasValue ? jobInfo.LeaveEndDate.Value.ToShortDateString() : "-")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+}
+
+@code {
+    private List<GetEmployeesDto> employees;
+    private List<GetJobInfoByEmployeeIdDto> employeeJobInfos;
+
+    protected override async Task OnInitializedAsync()
+    {
+        employees = await HttpClient.GetFromJsonAsync<List<GetEmployeesDto>>("api/Employee/get-all-employees");
+    }
+
+    private async Task GetJobInfosByEmployeeIdAsync(Guid id)
+    {
+        try
+        {
+            var url = $"api/EmployeeJobInfo/get-job-info-by-employeeid?employeeId={id}";
+            employeeJobInfos = await HttpClient.GetFromJsonAsync<List<GetJobInfoByEmployeeIdDto>>(url);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Hata: {ex.Message}");
+        }
+    }
+}

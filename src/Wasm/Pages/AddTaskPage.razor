@@ -1,0 +1,22 @@
+﻿@page "/addtask"
+@using Application.Common.Features.Addresses.Command.Add;
+@using Application.Common.Features.EmployeeJobInformation.Command.Add;
+@using Application.Common.Features.Employees.Command.Add;
+@using Application.Common.Features.PhoneNumbers.Command.Add;
+@using Application.Common.Models;
+@using Domain.Common;
+@using Domain.Enums.ContactEnums;
+@using Domain.Enums.JobEnums;
+@using Domain.Enums.PersonalEnums;
+@using Domain.Services;
+@using System.Text.Json;
+@inject NavigationManager NavigationManager
+@inject HttpClient HttpClient;
+@inject IUrlHelperService UrlHelperService
+@inject IJSRuntime JSRuntime
+
+<h3>AddTaskPage</h3>
+
+@code {
+
+}

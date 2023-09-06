@@ -20,8 +20,16 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/huawei/Desktop/code/IntifAs/src/Wasm/Pages/AddTaskPage.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRkVGFza1BhZ2UucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/huawei/Desktop/code/IntifAs/src/Wasm/Pages/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/huawei/Desktop/code/IntifAs/src/Wasm/Pages/ShowEmployeePage.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvd0VtcGxveWVlUGFnZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/huawei/Desktop/code/IntifAs/src/Wasm/Shared/SurveyPrompt.razor]

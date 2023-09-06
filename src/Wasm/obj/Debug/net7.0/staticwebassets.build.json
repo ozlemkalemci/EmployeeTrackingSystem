@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "EOdQ7k3ffPZtPrI6wEa2O2sLMXUUlC1XMn6RyGQV8UA=",
+  "Hash": "1eYEGK3z1zuBbPAaRTljeULp2aPsDrwXTrGUQUetm24=",
   "Source": "Wasm",
   "BasePath": "/",
   "Mode": "Root",
@@ -221,23 +221,6 @@
       "OriginalItemSpec": "C:\\Users\\huawei\\.nuget\\packages\\microsoft.netcore.app.runtime.mono.browser-wasm\\7.0.10\\runtimes\\browser-wasm\\native\\dotnet.wasm"
     },
     {
-      "Identity": "C:\\Users\\huawei\\Desktop\\code\\IntifAs\\src\\Wasm\\bin\\Debug\\net7.0\\wwwroot\\_framework\\icudt.dat",
-      "SourceId": "Wasm",
-      "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\huawei\\Desktop\\code\\IntifAs\\src\\Wasm\\bin\\Debug\\net7.0\\wwwroot\\",
-      "BasePath": "/",
-      "RelativePath": "_framework/icudt.dat",
-      "AssetKind": "Build",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "BlazorWebAssemblyResource",
-      "AssetTraitValue": "native",
-      "CopyToOutputDirectory": "PreserveNewest",
-      "CopyToPublishDirectory": "Never",
-      "OriginalItemSpec": "C:\\Users\\huawei\\.nuget\\packages\\microsoft.netcore.app.runtime.mono.browser-wasm\\7.0.10\\runtimes\\browser-wasm\\native\\icudt.dat"
-    },
-    {
       "Identity": "C:\\Users\\huawei\\Desktop\\code\\IntifAs\\src\\Wasm\\bin\\Debug\\net7.0\\wwwroot\\_framework\\icudt_CJK.dat",
       "SourceId": "Wasm",
       "SourceType": "Computed",
@@ -287,6 +270,23 @@
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
       "OriginalItemSpec": "C:\\Users\\huawei\\.nuget\\packages\\microsoft.netcore.app.runtime.mono.browser-wasm\\7.0.10\\runtimes\\browser-wasm\\native\\icudt_no_CJK.dat"
+    },
+    {
+      "Identity": "C:\\Users\\huawei\\Desktop\\code\\IntifAs\\src\\Wasm\\bin\\Debug\\net7.0\\wwwroot\\_framework\\icudt.dat",
+      "SourceId": "Wasm",
+      "SourceType": "Computed",
+      "ContentRoot": "C:\\Users\\huawei\\Desktop\\code\\IntifAs\\src\\Wasm\\bin\\Debug\\net7.0\\wwwroot\\",
+      "BasePath": "/",
+      "RelativePath": "_framework/icudt.dat",
+      "AssetKind": "Build",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "BlazorWebAssemblyResource",
+      "AssetTraitValue": "native",
+      "CopyToOutputDirectory": "PreserveNewest",
+      "CopyToPublishDirectory": "Never",
+      "OriginalItemSpec": "C:\\Users\\huawei\\.nuget\\packages\\microsoft.netcore.app.runtime.mono.browser-wasm\\7.0.10\\runtimes\\browser-wasm\\native\\icudt.dat"
     },
     {
       "Identity": "C:\\Users\\huawei\\Desktop\\code\\IntifAs\\src\\Wasm\\bin\\Debug\\net7.0\\wwwroot\\_framework\\MediatR.Contracts.dll",
@@ -7735,6 +7735,23 @@
       "OriginalItemSpec": "wwwroot\\css\\bootstrap\\bootstrap.min.css.map"
     },
     {
+      "Identity": "C:\\Users\\huawei\\Desktop\\code\\IntifAs\\src\\Wasm\\wwwroot\\css\\open-iconic\\FONT-LICENSE",
+      "SourceId": "Wasm",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\huawei\\Desktop\\code\\IntifAs\\src\\Wasm\\wwwroot\\",
+      "BasePath": "/",
+      "RelativePath": "css/open-iconic/FONT-LICENSE",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\open-iconic\\FONT-LICENSE"
+    },
+    {
       "Identity": "C:\\Users\\huawei\\Desktop\\code\\IntifAs\\src\\Wasm\\wwwroot\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css",
       "SourceId": "Wasm",
       "SourceType": "Discovered",
@@ -7835,23 +7852,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.woff"
-    },
-    {
-      "Identity": "C:\\Users\\huawei\\Desktop\\code\\IntifAs\\src\\Wasm\\wwwroot\\css\\open-iconic\\FONT-LICENSE",
-      "SourceId": "Wasm",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\huawei\\Desktop\\code\\IntifAs\\src\\Wasm\\wwwroot\\",
-      "BasePath": "/",
-      "RelativePath": "css/open-iconic/FONT-LICENSE",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\css\\open-iconic\\FONT-LICENSE"
     },
     {
       "Identity": "C:\\Users\\huawei\\Desktop\\code\\IntifAs\\src\\Wasm\\wwwroot\\css\\open-iconic\\ICON-LICENSE",
